@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+﻿<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -45,6 +45,11 @@
             }, 400);
 		});
 	});
+	
+	function gongjialert()
+	{
+		alert("로그인 시 이용가능합니다.");		
+	}
 </script>
 <style>
 	#side_right_menu
@@ -57,44 +62,46 @@
 	{
 		position:fixed;
 		width:auto;
-		top:800px;
-		left:1700px; /* 가로 위치는 파일을 옮기면 1500~1600 사이로 변경 */
+		top:750px;
+		left:1550px; /* 가로 위치는 파일을 옮기면 1500~1600 사이로 변경 */
 	}
 </style>
 <body>
     <!-- Page Preloder -->
-<!--      <div id="preloder">
+     <div id="preloder">
         <div class="loader"></div>
-    </div> -->
+    </div>
 
     <!-- Humberger Begin(사이드 메뉴) -->
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="main"><img src="resources/img/logo.jpg"></a>
+            <a href="main"><img src="resources/img/new_logo.png" width="100%" height="130"></a>
         </div>
         <nav class="humberger__menu__nav mobile-menu"> <!-- 사이드 메뉴 -->
             <ul> 									<!-- 링크 설정 -->
                 <li><a href="main">Home</a></li>
                 <li>
                 	<c:if test="${userid != null }">
-                		<a href="#">마이 페이지</a>
+                		<c:if test="${userid != 'admin' }">
+                			<a href="mypage">마이 페이지</a>
+                		</c:if>
+                		<c:if test="${userid == 'admin' }">
+                			<a href="admin_page">관리자 모드</a>
+                		</c:if>
                 	</c:if>
                 	<c:if test="${userid == null }">
                 		<a href="login">마이 페이지</a>
                 	</c:if>
                 </li>
-                <li><a href="#">자가진단</a></li>
+	 <c:if test="${userid == null }">
+		<li><a href="login">자가진단</a></li>
+	 </c:if>
+	 <c:if test="${userid != null }">
+		<li><a href="self_diagnose">자가진단</a></li>
+	 </c:if>
                 <li><a href="commu_list">자유 게시판</a></li>
-                <li><a href="#">고객 센터</a></li>
-                <li class="dropdown"><a href="#">하위 메뉴 보여주기</a>
-                    <ul class="dropdown__menu">
-                        <li><a href="#">Categories Grid</a></li>
-                        <li><a href="#">Categories List</a></li>
-                        <li><a href="#">Single Post</a></li>
-                        <li><a href="#">Sign In</a></li>
-                    </ul>
-                </li>
+                <li><a href="gongji_list">고객 센터</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -123,8 +130,8 @@
                         <nav class="header__menu">
                             <ul>
                                 <li><a href="main">Home</a></li>
-                                <li><a href="introduce">소개</a>
-									<div class="header__megamenu__wrapper" align="center">
+                                <li><a href="#">소개</a>
+			<div class="header__megamenu__wrapper" align="center">
                                         <div class="header__megamenu">
                                             <div class="header__megamenu__item">
                                                     <div class="label"><a href="introduce">사이트 소개</a></div>
@@ -135,22 +142,67 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li><a href="#">통계</a></li>
-                                <li><a href="#">레시피</a></li>
-                                <li><a href="#">건강기능 식품</a></li>
-                                <li><a href="#">자가진단</a></li>
+                               <c:if test="${userid == 'admin' }">
+                                	<li><a href="#">통계</a>
+                                		<div class="header__megamenu__wrapper" align="center">
+                                        <div class="header__megamenu">
+                                            <div class="header__megamenu__item">
+                                                    <div class="label"><a href="statistics">일반 통계</a></div>
+                                            </div>
+                                            <div class="header__megamenu__item">
+                                                    <div class="label"><a href="hchart">관리자 통계</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                	</li>
+                                	<li><a href="gongji_news">뉴스</a></li>
+                                </c:if>
+                                <c:if test="${userid != 'admin' }">
+                                	<li><a href="statistics">통계</a></li>
+                                	<li><a href="gongji_news">뉴스</a></li>
+                                </c:if>
+                                <li><a href="#">레시피/재료</a>
+                                	<div class="header__megamenu__wrapper" align="center">
+                                        <div class="header__megamenu">
+                                            <div class="header__megamenu__item">
+                                                    <div class="label"><a href="recipe_list">건강 레시피</a></div>
+                                            </div>
+                                            <div class="header__megamenu__item">
+                                                    <div class="label"><a href="member_recipe_list">회원 공유 레시피</a></div>
+                                            </div>
+			 <div class="header__megamenu__item">
+                                                    <div class="label"><a href="keywd_search">재료</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li><a href="hfood">건강기능 식품</a></li>
+                                <c:if test="${userid == null }">
+			<li><a href="login">자가진단</a></li>
+	 	  </c:if>
+	 	  <c:if test="${userid != null }">
+			<li><a href="self_diagnose">자가진단</a></li>
+		  </c:if>
                                 <li><a href="commu_list">자유 게시판</a></li>
                                 <li><a href="#">고객센터</a>
                                 	<div class="header__megamenu__wrapper" align="center">
                                         <div class="header__megamenu">
                                             <div class="header__megamenu__item">
-                                                    <div class="label"><a href="#">공지사항</a></div>
+                                                    <div class="label"><a href="gongji_list">공지사항</a></div>
                                             </div>
                                             <div class="header__megamenu__item">
-                                                    <div class="label"><a href="#">자주 묻는 질문</a></div>
+                                                    <div class="label"><a href="gongji_qna">도움말</a></div>
                                             </div>
                                             <div class="header__megamenu__item">
-                                                    <div class="label"><a href="#">1대1 문의</a></div>
+                                            <c:if test="${userid != null && userid != 'admin'}">
+                                                    <div class="label"><a href="gongji_client">1대1 문의</a></div>
+                                            </c:if>
+                                            <c:if test="${userid == null }">
+                                            		<div class="label"><a href="javascript:gongjialert()">1대1 문의</a></div>
+                                            </c:if>
+                                            <c:if test="${userid == 'admin' }">
+                                            		<div class="label"><a href="admin_client_list">1대1 문의</a></div>
+                                            </c:if>
                                             </div>
                                         </div>
                                     </div>
@@ -170,17 +222,17 @@
                         </c:if>
                         <c:if test="${userid != null }">
                         	<c:if test="${userid != 'admin' }">
-                        		<a href="#" class="primary-btn">${nickname }님</a><a href="logout" class="primary-btn">로그아웃</a>
+                        		<a href="mypage" class="primary-btn">${nickname }님</a><a href="logout" class="primary-btn">로그아웃</a>
                         	</c:if>
                         	<c:if test="${userid == 'admin' }">
-                        		<a href="#" class="primary-btn">관리자모드</a><a href="logout" class="primary-btn">로그아웃</a>
+                        		<a href="admin_page" class="primary-btn">관리자모드</a><a href="logout" class="primary-btn">로그아웃</a>
                         	</c:if>
                         </c:if>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="header__logo">
-                        <a href="main"><img src="resources/img/logo.jpg" width="250" height="70"></a>
+                        <a href="main"><img src="resources/img/new_logo.png" width="450px" height="100"></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3">
