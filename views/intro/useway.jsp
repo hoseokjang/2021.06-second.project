@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -60,9 +60,11 @@
 	<div id="useway_title_img" align="center">
 		<img src="resources/img/useway_img.png" width="40%" height="auto">
 	</div>
+	<br>
+	<br>
 	<div id="useway_content">
 		<div id="useway_content_title">
-			<h4><strong>서비스 소개</strong></h4>
+			<h3><strong>서비스 소개</strong></h3>
 		</div>
 		<div id="useway_content_sub" align="center">
 			<div id="useway_content_sub1">
@@ -80,11 +82,20 @@
 				</div>
 			</div>
 		</div>
+		<br>
+		<br>
+		<br>
 		<div id="useway_recipe" align="center">
-			<div>레시피 페이지 사진과 설명이 들어가기</div>	
+			<img src="resources/img/usewayrecipe.PNG">
+			<div><h4>600개 이상의 건강한 레시피를 제공해드립니다!</h4></div>
 		</div>
+		<br>
+		<br>
+		<br>
 		<div id="useway_hfood" align="center">
-			<div>건강식품 페이지 사진과 설명이 들어가기</div>
+			<img src="resources/img/useway_hfood.png" width="40%">
+			<p>
+			<div><h4>1,100여개 이상의 건강 기능 식품을 소개해 드립니다!</h4></div>
 		</div>
 	</div>
 </div>

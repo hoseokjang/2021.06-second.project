@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -45,17 +45,18 @@
 		</div>
 	</div>
 	<div align="center" id="intro_title">
-		<h2><strong>프로젝트 팀명 자리</strong></h2>
+		<h2><strong>Health Life</strong></h2>
 	</div>
 	
 	<div align="center" id="intro_content1">
-		<div id="intro_content1_text"><h5><strong>"팀명"</strong>은 여러분의 건강을 최우선으로 생각합니다.</h5></div>
+		<div id="intro_content1_text"><h5><strong>Health Life</strong>는 여러분의 건강을 최우선으로 생각합니다.</h5></div>
 		<img src="resources/img/intro1.jpg" width="650"> 
 	</div>
 	<div align="center" id="intro_content2">
 		<div id="intro_content2_text"><h5><strong>For Happy!! For Healthy!!</strong></h5></div>
 		<img src="resources/img/intro2.jpg" width="650"> 
 	</div>
+
 </div>
 
 
