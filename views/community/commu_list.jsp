@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,11 +21,31 @@
 		<td colspan="4" height="30">
 			<form method="post" action="commu_list">
 				<select name="csel">
-					<option value="title">제목</option>
-					<option value="nickname">작성자</option>
-					<option value="content">내용</option>
+					<c:if test="${csel.equals('title') }">
+						<option value="title" selected>제목</option>
+					</c:if>
+					<c:if test="${!csel.equals('title') }">
+						<option value="title">제목</option>
+					</c:if>
+					<c:if test="${csel.equals('nickname') }">
+						<option value="nickname" selected>작성자</option>
+					</c:if>
+					<c:if test="${!csel.equals('nickname') }">
+						<option value="nickname">작성자</option>
+					</c:if>
+					<c:if test="${csel.equals('content') }">
+						<option value="content" selected>내용</option>
+					</c:if>
+					<c:if test="${!csel.equals('content') }">
+						<option value="content">내용</option>
+					</c:if>
 				</select>
-				<input type="text" name="cword" placeholder="검색어를 입력해주세요">
+				<c:if test="${cword == '' }">
+					<input type="text" name="cword" placeholder="검색어를 입력해주세요" autocomplete="off">
+				</c:if>
+				<c:if test="${cword != '' }">
+					<input type="text" name="cword" value="${cword }" autocomplete="off">
+				</c:if>
 				<input type="submit" value="검색">
 			</form>
 		</td>
@@ -33,7 +53,7 @@
 	<tr>
 		<td colspan="4" id="commu_write" height="20">
 			<a href="commu_list?chk=1" id="list_ord">이름 순</a>|
-			<a href="commu_list?chk=2" id="list_ord">조회 순</a>|
+			<a href="commu_list?chk=2" id="list_ord">조회수 순</a>|
 			<a href="commu_list?chk=3" id="list_ord">작성 일자 순</a>&nbsp;&nbsp;&nbsp;
 		</td>
 	</tr>
