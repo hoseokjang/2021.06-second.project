@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+
+<mapper namespace="kr.co.life.community.dao.ReportDao">
+	<insert id="report_ok" parameterType="kr.co.life.community.dto.ReportDto">
+		insert into report(cid, userid, writeday) values(#{cid}, #{userid}, now())
+	</insert>
+	<select id="report_list" resultType="kr.co.life.community.dto.ReportDto">
+		select report.*, community.title from report, community where report.cid = community.id order by id desc
+	</select>
+	<delete id="report_del">
+		delete from report where id=#{param1}	
+	</delete>
+	<delete id="commu_report_del">
+		delete from community where id=#{cid}
+	</delete>
+</mapper>

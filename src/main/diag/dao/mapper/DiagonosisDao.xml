@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+
+<mapper namespace="kr.co.life.diag.dao.DiagonosisDao">
+	<select id="list" resultType="kr.co.life.diag.dto.DiagonosisDto">
+		select * from diagnosis where userid=#{userid} order by id desc limit 1
+	</select>
+	<select id="nick" parameterType="String" resultType="String">
+		select nickname from member where userid=#{param1}
+	</select>
+	<select id="reco_rlist" parameterType="Integer" resultType="kr.co.life.recipe.dto.RecipeDto">
+		SELECT * from recipe AS r 
+		WHERE r.ingrename_1 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_2 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_3 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_4 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_5 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_6 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_7 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_8 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_9 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_10 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_11 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_12 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_13 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_14 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_15 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_16 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_17 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_18 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_19 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_20 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_21 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_22 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_23 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		OR r.ingrename_24 in (SELECT material FROM material WHERE ctg=#{param1}) 
+		order by r_like desc limit 3
+	</select>
+	<select id="reco_hlist" parameterType="Integer" resultType="kr.co.life.hfood.dto.HfoodDto">
+		SELECT hp.*, hm.material, (select round(avg(rating),1) from hreview where pid=hp.id) as jumsu from hproduct as hp, hmaterial as hm where hm.ctg=#{param1} and hp.category=hm.material order by jumsu desc limit 3
+	</select>
+</mapper>

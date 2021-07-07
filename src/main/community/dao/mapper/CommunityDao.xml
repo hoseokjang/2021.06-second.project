@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+
+<mapper namespace="kr.co.life.community.dao.CommunityDao">
+	<select id="commu_list" resultType="kr.co.life.community.dto.CommunityDto">
+		select community.*,(select count(*) from dat where community.id = dat.cid) as dat_num from community
+			where ${param1} like concat('%',#{param2},'%')order by id desc limit #{param3}, 10
+	</select>
+	<select id="commu_list1" resultType="kr.co.life.community.dto.CommunityDto">
+		select community.*,(select count(*) from dat where community.id = dat.cid) as dat_num from community
+		where ${param1} like concat('%',#{param2},'%')order by nickname limit #{param3}, 10
+	</select>
+	<select id="commu_list2" resultType="kr.co.life.community.dto.CommunityDto">
+		select community.*,(select count(*) from dat where community.id = dat.cid) as dat_num from community
+		where ${param1} like concat('%',#{param2},'%')order by readnum desc limit #{param3}, 10
+	</select>
+	<select id="commu_list3" resultType="kr.co.life.community.dto.CommunityDto">
+		select community.*,(select count(*) from dat where community.id = dat.cid) as dat_num from community
+		where ${param1} like concat('%',#{param2},'%')order by writeday desc limit #{param3}, 10
+	</select>
+	<select id="get_pagecnt" resultType="Integer">
+		select ceil(count(*)/10) from community
+	</select>
+	<insert id="commu_write_ok" parameterType="kr.co.life.community.dto.CommunityDto">
+		insert into community(nickname, title, content, writeday) values(#{nickname}, #{title}, #{content}, now())
+	</insert>
+	<update id="commu_readnum">
+		update community set readnum=readnum+1 where id = #{param1}
+	</update>
+	<select id="commu_content" resultType="kr.co.life.community.dto.CommunityDto">
+		select * from community where id = #{param1}
+	</select>
+	<update id="commu_update_ok" parameterType="kr.co.life.community.dto.CommunityDto">
+		update community set title=#{title}, content=#{content} where id=#{id}
+	</update>
+	<delete id="commu_delete">
+		delete from community where id=#{param1}
+	</delete>
+	
+	<!-- main 페이지 자유게시판 5개 -->
+	<select id="main_commu" resultType="kr.co.life.community.dto.CommunityDto">
+		select * from community order by id desc limit 5
+	</select>
+</mapper>

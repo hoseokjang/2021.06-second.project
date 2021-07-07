@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybats-3-mapper.dtd">
+
+<mapper namespace="kr.co.life.community.dao.DatDao">
+	<insert id="dat_write_ok" parameterType="kr.co.life.community.dto.DatDto">
+		insert into dat(cid, nickname, content, writeday) values(#{cid}, #{nickname}, #{content}, now())
+	</insert>
+	<select id="dat_list" resultType="kr.co.life.community.dto.DatDto">
+		select * from dat where cid = #{param1} order by id desc  limit #{param2}, 10
+	</select>
+	<update id="dat_update" parameterType="kr.co.life.community.dto.DatDto">
+		update dat set content=#{content} where id = #{id}
+	</update>
+	<delete id="dat_delete">
+		delete from dat where id=#{param1}
+	</delete>
+	<select id="dat_cnt" resultType="Integer">
+		select ceil(count(*)/10) from dat where cid = #{param1}
+	</select>
+</mapper>
